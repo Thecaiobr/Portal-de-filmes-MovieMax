@@ -1,0 +1,275 @@
+/*Menu header*/
+
+header {
+  padding: 20px 0;
+  background: rgba(0, 0, 0, 0.849); 
+}
+
+.logo{
+  width: 100px;
+}
+
+.container {
+  padding: 0 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: right;
+}
+nav li {
+  display: inline-block;
+  margin-left: 25px;
+  height: 70px;
+  line-height: 70px;
+  transition: .5s linear;
+}
+nav a {
+  text-decoration: none;
+  display: block;
+  position: relative;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+nav a:hover{
+    color: white;
+}
+
+nav a:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  background:white;
+  transition: width .5s linear;  
+}
+nav a:hover:after {width: 100%;}
+
+@media screen and (max-width: 660px) {
+  header {text-align: center;}
+  .logo-box {
+    float: none;
+    display: inline-block;
+    margin: 0 0 16px 0;
+  }
+  ul {float: none;}
+  nav li:first-of-type {margin-left: 0;}
+}
+@media screen and (max-width: 550px) {
+nav {overflow: visible;}
+nav li {
+  display: block;
+  margin: 0;
+  height: 40px;
+  line-height: 40px;
+}
+nav li:hover {background: rgba(0,0,0,.1);}
+nav a:after {content: none;}
+
+.card{
+    margin-top: 20px;
+}
+}
+
+/*Busca da pagina*/
+
+.item:hover {
+    cursor: pointer;
+    background: #eeeeee;
+  }
+  
+  .logo {
+    width: 80px;
+    margin-right: 10px;
+  }
+  
+  .header {
+    height: 50vh;
+    display: grid;
+    place-items: center center;
+  }
+  
+  .white {
+    color: #ffffff;
+  }
+  
+  .is-yellow-btn {
+    background: #f6d500 !important;
+    color: #3e3c31 !important;
+  }
+  
+  .pager .button {
+    background: #78909C !important;
+  }
+  
+  .pager .is-secondary {
+    color: #78909C !important;
+    background: transparent !important;
+    border: 2px solid #78909C !important;
+    margin: 2px !important;
+  }
+  
+  .is-font-weight-light {
+      font-weight: 300 !important;
+  }
+  
+  .results .is-badge {
+    font-size: 16px !important;
+    height: 30px !important;
+    padding: 6px !important;
+  }
+  
+  .results,
+  .title {
+    text-transform: uppercase;
+  }
+  
+
+  /* Card Destaque */
+
+.card-img-top{
+  height:300px;
+}
+
+.categoria{
+  margin-top: 10px;
+  border: #222;
+  border-radius: 10px;
+}
+.opcao:hover{
+  background: rgb(240, 232, 232);
+}
+
+.card-destaque{
+  background-color: #222;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.card_area{
+  margin:20px
+}
+
+
+/*Avaliações*/
+
+.avaliacoes{
+  margin: 10px;
+  padding: 20px;
+  border: #222;
+  border-radius: 10px;
+}
+
+.checked{
+  color: orange;
+}
+
+.avaliacoes-box
+
+/*Entrevistas*/
+
+.entrevistas{
+    margin-left: 10px;
+    border: #222;
+  border-radius: 10px;
+}
+
+.card{
+    padding: 10px;
+}
+
+
+
+.mk{
+  height: 325px;
+}
+
+
+
+.carregar-mais{
+  float: right;
+  margin: 20px;
+}
+
+
+@media screen and (max-width: 800px){
+  .mk{
+    height: 300px;
+    width: 100%;
+  }
+  .container{
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 550px) and (max-width:750px){
+  .mk{
+    
+  }
+}
+
+/*Novidades*/
+
+
+
+#novidade-area{
+  background-color: #222;
+  color: white;
+}
+
+#texto-novidade{
+  font-size: 0.9em;
+}
+
+.novidades{
+  padding: 20px;
+}
+
+.mk{
+  max-width: 100%;
+  object-fit: cover;
+}
+
+
+
+/* Sobre */
+
+#icone{
+  display: inline;
+  padding: 20px;
+  font-size: 30px;
+}
+.aparecer{
+  text-align: center;
+}
+
+#usuario{
+  display: inline;
+  padding: 20px;
+  font-size: 20px;
+}
+
+
+/* Footer */
+
+  .footer{
+    background-color:  rgba(0, 0, 0, 0.849);
+    margin-top: 20px;
+    color: white;
+}
+
+.footer_area{
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+    
+}
+  

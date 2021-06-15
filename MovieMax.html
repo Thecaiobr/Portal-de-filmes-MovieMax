@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMax</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kube.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"crossorigin="anonymous"></linkrel>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="cinema.css">
+  <script src="https://kit.fontawesome.com/5efd0e313d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header>
+
+  
+        <div class="container-fluid" role="main">
+            
+            <nav class="navbar navbar-expand-lg navbar-ligh">
+                <img src="imgcinema/LOGO_2-removebg-preview.png" class="logo" width="10%">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars" style="color: white; font-size: 1.1em;"></i>
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">Lançamentos</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">Em Destaque</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">Avaliacoes</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">Entrevistas</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link " href="#">Novidades</a>
+                    </li>
+                    
+                </ul>
+    
+            </nav>
+            
+        </div>
+    
+    </header>
+<!-- Pesquisa de filmes via API -->
+<div class="conatiner">
+  <div class="page"> 
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <header class="header" id="header">
+        <div>
+            <img src="imgcinema/LOGO_2-removebg-preview.png" class="logo">
+            <span class="is-large white">Buscar Filmes</span>
+            <span class="is-font-weight-light white"></span>
+            <div class="is-append is-inset-20">
+            <input type="text" id="searchInput" name="search" placeholder="Search" class="is-search">
+            <button type="button" class="btn btn-danger"onclick="search()">Pesquisar</button>
+            </div>
+        </div>
+        </header>
+
+    <template id="heroTemplate">
+      <img class="hero-bg">
+    </template>
+
+    <main class="main is-inset-32">
+      <!-- Descrição dos filmes -->
+      <div id="movie"></div>
+      <template id="movieTemplate">
+        <div class="is-row">
+          <div class="is-col is-text-center is-30">
+            <img class="movie-poster" alt="Poster">
+          </div>
+          <div class="is-col is-70">
+            <h2 class="title"></h2>
+            <span class="movie-release-year is-muted"></span>
+
+            <h3 class="is-inset-top-20">Overview</h3>
+            <p class="is-large overview"></p>
+          </div>
+        </div>
+      </template>
+
+      <div id="recommendations" class="is-row is-32"></div>
+      <template id="recomendationsTemplate">
+        <div class="is-col item is-text-center is-20 is-inset-y-16">
+          <img class="movie-poster is-12" alt="Poster"><br>
+          <span class="movie-title"></span>
+        </div>
+      </template>
+
+      <!-- Lista de filmes -->
+      <div id="title" class="is-32 results"></div>
+      <template id="resultsTemplate">
+        <span class="results is-muted"></span>
+        <span class="label is-badge"></span>
+      </template>
+      <template id="titleTemplate">
+        <span class="title is-muted"></span>
+      </template>
+
+      <table id="moviesTable" class="is-striped"></table>
+      <template id="movieListTemplate">
+        <tr class="item is-middle">
+          <td class="is-10 is-text-center">
+            <img class="movie-poster">
+            <img class="movie-background">
+          </td>
+          <td>
+            <span><b class="movie-title"></b></span><br>
+            <span class="movie-release-year is-muted"></span>
+          </td>
+        </tr>
+      </template>
+
+      <div id="pager" class="is-inset-top-20 pager"></div>
+      <template id="pagerTemplate">
+        <button class="button"></button>
+      </template>
+
+      <template id="list-template">
+        <li class="item">
+          <div class="item-title"></div>
+          <div class="item-body"></div>
+        </li>
+      </template>
+    </main>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+<!--Em Destaque -->
+  <section class="row card_area">
+    <div class="col-12 col-sm-6 col-md-8 col-lg-8">
+        <h2>Em destaque</h2>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 categoria">
+        <label for="categoria"></label>
+        <select name="categoria">
+        <option class="opcao">Categoria: Todos</option>    
+        <option class="opcao">Categoria: Ação</option>
+        <option class="opcao">Categoria: Aventura</option>
+        <option class="opcao">Categoria: Romance</option>
+        <option class="opcao">Categoria: Drama</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 col-lg3">
+        <div class="card-destaque">
+            <img src="imgcinema/To_All_the_Boys_-_P.S._I_Still_Love_You_official_release_poster.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">A todos os garotos: Ps ainda te amo</h5>
+              
+              <a href="https://www.youtube.com/watch?v=j-3s0-PEd4c" class="btn btn-danger">Trailer</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-3 col-lg3">
+        <div class="card-destaque">
+            <img src="imgcinema/capa-Soul-Uma-Aventura-com-Alma-hd-filmes.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Soul: Uma aventura com a alma</h5>
+              <a href="https://www.youtube.com/watch?v=hWBxoH4-4yw" class="btn btn-danger">Trailer</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-3 col-lg3">
+        <div class="card-destaque">
+            <img src="imgcinema/once_upon_a_time_in_hollywood_ver8.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Era uma vez em <br> hollywood</h5>
+              
+              <a href="https://www.youtube.com/watch?v=OYGUQmJlgiE" class="btn btn-danger">Trailer</a>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-3 col-lg3">
+        <div class="card-destaque">
+            <img src="imgcinema/1917.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">1917: o tempo é <br>o inimigo</h5>
+              
+              <a href="https://www.youtube.com/watch?v=EK27-zP8xzk" class="btn btn-danger">Trailer</a>
+            </div>
+          </div>
+    </div>
+    <div class="carregar-mais">
+    <button type="button" class="btn btn-danger" >+ Carregar mais</button>
+    </div>
+</section>
+
+<section class="row avaliacoes">
+      
+  <div class="col-12 col-sm-12 col-md-12 col-lg12">
+    <h2>Avaliações</h2>
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-4 col-lg4">
+  <div class="card avaliacoes-box">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Filme:</strong> Godzilla vs Kong</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Johnathan Roberts 16/04/2021</h6>
+      <p class="card-text">O filme tem buracos no plot tão grandes que o próprio Godzilla poderia passar por eles, e alguns dos efeitos são vacilantes, para dizer o mínimo. Além disso, fãs de Godzilla podem ficar irritados por Kong ter muito mais tempo de tela. Mesmo assim, é tudo o que você poderia esperar deste confronto -- entretenimento do tamanho de um kaiju.</p>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <div class="estrelas">
+          
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-sm-12 col-md-4 col-lg4">
+  <div class="card avaliacoes-box">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Filme:</strong> 1917</h5>
+      <h6 class="card-subtitle mb-2 text-muted">João Malheiros 09/12/2020</h6>
+      <p class="card-text">A direção foi primorosa, com esta sequência que parece não ter fim, numa cena que vai do começo ao fim do filme. História muito boa, que de fato se assemelham ao Soldado Ryan, Platoon e o Franco Atirador, que muita gente aqui deve não ter visto e é recomendadíssimo.</p>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+      <br><br>
+        <div class="estrelas">
+          
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 col-sm-12 col-md-4 col-lg4">
+  <div class="card avaliacoes-box">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Filme:</strong> Soul</h5>
+      <h6 class="card-subtitle mb-2 text-muted">John Beifuss 22/02/2021</h6>
+      <p class="card-text">"Este pode ser o filme mais "adulto" da Pixar, em termos de seus temas, seus personagens em sua maioria de meia-idade, às vezes experimental e - sim - animação jazz (o paraíso é governado por personagens que não são nada além de linhas onduladas), e seus trilha sonora."</p>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+      <br>
+        <div class="estrelas">
+          
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+
+        </div>
+    </div>
+  </div>
+</div>
+<div class="carregar-mais">
+  <button type="button" class="btn btn-danger" >+ Carregar mais</button>
+</div>
+
+</section> 
+
+<!--Entrevistas e Making of-->
+<div class="container">
+    <section class="row entrevistas">
+      <div class="col-12 col-sm-12 col-md-12 col-lg12">
+        <h2>Entrevistas & Making of</h2>
+      </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg4">
+          
+            <div class="card entrevista-caixa">
+                <!--Card image-->
+                <iframe  src="https://www.youtube.com/embed/2IaAMPKeGcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!--Card content-->
+                <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title"><strong>Filme:</strong>O irlândes</h4>
+                <!--Text-->
+                <p class="card-text"><strong>Diretor:</strong> Martin Scorsese</p>
+                <p class="card-text"><strong>Roteirista:</strong> Steven Zaillian</p>
+                
+                </div>
+            </div>
+        </div>  
+        
+        <div class="col-12 col-sm-12 col-md-4 col-lg4">
+    
+            <div class="card entrevista-caixa">
+                <!--Card image-->
+                <iframe  src="https://www.youtube.com/embed/tSKy5LwfJ88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!--Card content-->
+                <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title"><strong>Filme:</strong> Soul</h4>
+                <!--Text-->
+                <p class="card-text"><strong>Diretor:</strong> Pete Docter, Kemp Powers</p>
+                <p class="card-text"><strong>Roteirista:</strong> Pete Docter, Kemp Powers, Mike Jones</p>
+                
+                </div>
+            </div>
+        </div>  
+
+        <div class="col-12 col-sm-12 col-md-4 col-lg4">
+    
+            <div class="card entrevista-caixa">
+                <!--Card image-->
+                <iframe  src="https://www.youtube.com/embed/IsLHsSF36GA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!--Card content-->
+                <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title"><strong>Filme:</strong> Esquadrão Suicida</h4>
+                <!--Text-->
+                <p class="card-text"><strong>Diretor:</strong> James Gunn</p>
+                <p class="card-text"><strong>Roteirista:</strong> James Gunn</p>
+                
+                </div>
+            </div>
+        </div>  
+        <div class="carregar-mais">
+          <button type="button" class="btn btn-danger carregar-mais">+ Carregar mais</button>
+        </div>
+    </section>
+</div>
+<!--Novidades-->
+<div class="container">
+    <section class="row novidades">
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg12">
+        <h2>Novidades</h2>
+      </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg12">
+            <div class="card mb-3" id="novidade-area">
+              <div class="h-25 d-inline-block">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img  src="imgcinema/Stephen_Hawking.StarChild.jpg" class="mk" >
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body" id="corpo-novidades">
+                      <h5 class="card-title">O cientista Stephen Hawking chegou a assistir ao filme estrelado por Eddie Redmayne e teve uma reação incrível.</h5>
+                      <p class="card-text" id="texto-novidade">O filme de hoje na Sessão da Tarde é A Teoria de Tudo, estrelado por Eddie Redmayne  que venceu um Oscar por sua atuação na obra , Felicity Jones e Tom Prior. A trama fala sobre a trajetória de Stephen Hawking, um dos físicos teóricos mais importantes na história da humanidade.</p>
+                      <p class="card-text"><small class="text-muted">Atualizado a 3 dias atras</small></p>
+                      <a href="https://www.adorocinema.com/noticias/filmes/noticia-158539/" class="btn btn-danger">Leia Mais</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg12">
+              <div class="card mb-3" id="novidade-area">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img  src="imgcinema/mortal-kombat_2021.jpg" class="mk">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body" id="corpo-novidades">
+                        <h5 class="card-title">Mortal Kombat: o que a crítica está achando do filme? Descubra!</h5>
+                        <p class="card-text" id="texto-novidade">O novo filme de Mortal Kombat, após tanta espera, enfim, foi oficialmente lançado nos cinemas norte-americanos e no streaming HBO Max. Baseado na franquia de jogos de combate, o filme traz personagens já conhecidos pelo público, como Liu Kang, Sub-Zero e Scorpion, além de introduzir Cole Young, um novo nome e protagonista do filme Mortal Kombat.</p>
+                        <p class="card-text"><small class="text-muted">Atualizado a 3 dias atras</small></p>
+                        <a href="https://www.tecmundo.com.br/cultura-geek/216121-mortal-kombat-critica-internacional-filme.htm" class="btn btn-danger">Leia Mais</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card mb-3" id="novidade-area">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img  src="imgcinema/EiZrsPgXsAA7ffF.jpeg" class="mk" >
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body" id="corpo-novidades">
+                      <h5 class="card-title">MTV Movie & TV Awards: WandaVision e Borat 2 lideram indicações</h5>
+                      <p class="card-text" id="texto-novidade">WandaVision e Borat 2 são os maiores destaques entre os indicados para o MTV Movie & TV Awards. A primeira série da Marvel conta com cinco nomeações e a sequência estrelada por Sacha Baron Carter aparece em três categorias.</p>
+                      <p class="card-text"><small class="text-muted">Atualizado a 3 dias atras</small></p>
+                      <a href="https://www.tecmundo.com.br/cultura-geek/215891-mtv-movie-tv-awards-wandavision-borat-2-lideram-indicacoes.htm" class="btn btn-danger">Leia Mais</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+    </section>
+
+    <aside>
+      <div class="container">
+        <div class="col-12 col-sm-12 ">
+          <div class="aparecer">
+          <h2>Sobre</h2>
+          <p class="texto-sobre">Esse é um portal  de filmes desenvolvido para o trabalho da disciplina de Desenvolvimento de Interfaces Web - PUC Minas - Unidade Praça da Liberdade</p>
+          <h2>Editorial</h2>
+          <p><i class="fa fa-user" id="usuario"></i><strong>Redação:</strong> Caio Massote Andrade</p>
+          <p><i class="fa fa-user" id="usuario"></i><strong>Pesquisa:</strong> Caio Massote Andrade</p>
+          <p><i class="fa fa-user" id="usuario"></i><strong>Gerente Geral:</strong> Caio Massote Andrade</p>
+            <h5><strong>redes socias</strong></h5>
+              <i class="fa fa-instagram" id="icone"></i><i class="fa fa-twitter" id="icone"></i><i class="fa fa-facebook" id="icone"></i>
+           </div> 
+        </div>
+      </div>
+    </aside>
+
+</main>
+
+
+
+
+<!--Footer-->
+<footer class="container footer">
+<div class="row">
+    <div class="col-8 footer_area">
+        <p>Copyright 2021 - Disciplina de Desenvolvimento de Intefaces Web - <strong>ICEI PUC Minas</strong></p>
+    </div>
+</div>
+</footer>
+
+
+<script src='config.js'></script>
+<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"crossorigin="anonymous"></script>
+
+</body>
+</html>
